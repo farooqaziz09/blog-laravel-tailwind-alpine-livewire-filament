@@ -17,11 +17,14 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $slug = $this->faker->slug(3);
+
         return [
             'user_id' => User::factory(),
             'title' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(3),
-            'image' => $this->faker->imageUrl(),
+            'slug' => $slug,
+            // Faker's imageUrl() points at via.placeholder.com, which is offline; seed by slug for a stable unique image per post.
+            'image' => "https://picsum.photos/seed/{$slug}/640/480",
             'body' => $this->faker->paragraph(10),
             'published_at' => $this->faker->dateTimeBetween('-1 week', '1 week'),
             'featured' => $this->faker->boolean(10)

@@ -2,7 +2,7 @@
 <div class="md:col-span-1 col-span-3">
   <a href="{{ route('post.show', $post->slug) }}">
     <div>
-      <img class="w-full rounded-xl" src="https://placehold.co/600x400/orange/white">
+      <img class="w-full rounded-xl" src="{{ $post->getThumbnailImage() }}" alt="{{ $post->title }}">
     </div>
   </a>
   <div class="mt-3">

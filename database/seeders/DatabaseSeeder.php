@@ -18,9 +18,13 @@ class DatabaseSeeder extends Seeder
         Post::factory(100)->create();
         Category::factory(5)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Local test login: test@example.com / password (admin, so /admin works too).
+        // `role` is not mass-assignable, hence forceFill.
+        User::firstOrNew(['email' => 'test@example.com'])->forceFill([
+            'name' => 'Test User',
+            'password' => 'password',
+            'role' => User::ROLE_ADMIN,
+            'email_verified_at' => now(),
+        ])->save();
     }
 }
