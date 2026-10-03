@@ -26,8 +26,11 @@ class PostFactory extends Factory
             // Faker's imageUrl() points at via.placeholder.com, which is offline; seed by slug for a stable unique image per post.
             'image' => "https://picsum.photos/seed/{$slug}/640/480",
             'body' => $this->faker->paragraph(10),
-            'published_at' => $this->faker->dateTimeBetween('-1 week', '1 week'),
-            'featured' => $this->faker->boolean(10)
+            // Mostly already published so / and /blog are populated after seeding. A few stay scheduled.
+            'published_at' => $this->faker->boolean(85)
+                ? $this->faker->dateTimeBetween('-2 months', '-1 hour')
+                : $this->faker->dateTimeBetween('+1 day', '+2 weeks'),
+            'featured' => $this->faker->boolean(20)
         ];
     }
 }
